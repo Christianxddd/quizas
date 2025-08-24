@@ -1,78 +1,46 @@
--- // Local Player
-local player = game.Players.LocalPlayer
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- // Load Orion Library
-local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/shlexware/Orion/main/source"))()
-
--- // Create Main Window
-local Window = OrionLib:MakeWindow({
-    Name = "Example Hub (Rename This!)",
-    HidePremium = false,
-    SaveConfig = true,
-    ConfigFolder = "OrionTest"
-    --[[ 
-        Name =           The name of the UI
-        HidePremium =    Whether or not the user details shows Premium status
-        SaveConfig =     Toggles config saving in the UI
-        ConfigFolder =   Folder name where configs are saved
-        IntroEnabled =   Show intro animation? (true/false)
-        IntroText =      Text in intro animation
-        IntroIcon =      Icon in intro animation
-        Icon =           Window icon
-        CloseCallback =  Function executed when window closes
-    ]]
+local Window = Rayfield:CreateWindow({
+   Name = "Super Fun Obby",
+   LoadingTitle = "Obby Hub",
+   LoadingSubtitle = "by a Random Exploiter",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil,
+      FileName = "Obby Hub"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
+   },
+   KeySystem = false,
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key",
+      SaveKey = true,
+      GrabKeyFromSite = false,
+      Key = {"Hello"}
+   }
 })
 
--- // Create Tab
-local Tab = Window:MakeTab({
-    Name = "Tab 1",
-    Icon = "rbxassetid://4483345998",
-    PremiumOnly = false
-    --[[ 
-        Name =        The name of the tab
-        Icon =        Icon of the tab
-        PremiumOnly = Only accessible for Premium users
-    ]]
+local MainTab = Window:CreateTab("Main", nil)
+local MainSection = MainTab:CreateSection("Main")
+
+local Button = Tab:CreateButton({
+   Name = "Finish All",
+   Callback = function()
+      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(130.338, 150.083, -484.042)
+   end,
 })
 
--- // Create Section
-local Section = Tab:AddSection({
-    Name = "LocalPlayer"
-    --[[ Name = The name of the section ]]
-})
+local OtherSection = MainTab:CreateSection("Other")    
 
--- // Welcome Notification
-OrionLib:MakeNotification({
-    Name = "Welcome!",
-    Content = "Welcome to my hub!",
-    Image = "rbxassetid://4483345998",
-    Time = 5
-    --[[ 
-        Name =    Title of the notification
-        Content = Content text
-        Image =   Notification icon
-        Time =    Duration of the notification
-    ]]
-})
-
--- // Buttons
-Tab:AddButton({
-    Name = "High Speed",
-    Callback = function()
-        player.Character.Humanoid.WalkSpeed = 500
-    end
-})
-
-Tab:AddButton({
-    Name = "High Jumppower",
-    Callback = function()
-        player.Character.Humanoid.JumpPower = 100
-    end
-})
-
-Tab:AddButton({
-    Name = "Low Gravity",
-    Callback = function()
-        game.Workspace.Gravity = 10
-    end
-})
+local Button = MainTab:CreateButton({
+   Name = "Destroy GUI",
+   Callback = function()
+      Rayfield:Destroy()
+   end,
+})   
